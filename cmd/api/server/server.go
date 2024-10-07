@@ -20,7 +20,7 @@ func (api *ApiServer) RegisterRoutes() {
 	registerUserHandler(api.router)
 }
 
-func (api *ApiServer) Start() {
+func (api *ApiServer) Start() error {
 	api.router.Run(api.url)
 }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/ciizo/go-gin-clean-arch/cmd/api/server"
 	"github.com/ciizo/go-gin-clean-arch/config"
@@ -14,5 +15,8 @@ func main() {
 	srv := server.New(srvUrl)
 	srv.RegisterRoutes()
 
-	srv.Start()
+	err := srv.Start()
+	if err != nil && err != http.ErrServerClosed {
+		// log
+	}
 }
