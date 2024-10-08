@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/ciizo/go-gin-clean-arch/internal/user/handlers"
+	"github.com/ciizo/go-gin-clean-arch/internal/user/handler"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -21,7 +21,7 @@ func New(url string, connectionString string) (*ApiServer, error) {
 }
 
 func (api *ApiServer) RegisterRoutes() {
-	registerUserHandler(api.router)
+	api.registerUserHandler()
 }
 
 func (api *ApiServer) Start() error {
@@ -30,6 +30,7 @@ func (api *ApiServer) Start() error {
 	return err
 }
 
-func registerUserHandler(router *gin.Engine) {
-	router.GET("/users", handlers.GetUsers)
+func (api *ApiServer) registerUserHandler() {
+	h := handler.New(api.db)
+	api.router.GET("/users", h.GetUsers)
 }
