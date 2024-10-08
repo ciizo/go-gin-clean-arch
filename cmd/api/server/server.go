@@ -6,14 +6,14 @@ import (
 )
 
 type ApiServer struct {
-	url    string
-	router *gin.Engine
+	address string
+	router  *gin.Engine
 }
 
 func New(url string) *ApiServer {
 	g := gin.Default()
 
-	return &ApiServer{url: url, router: g}
+	return &ApiServer{address: url, router: g}
 }
 
 func (api *ApiServer) RegisterRoutes() {
@@ -21,7 +21,7 @@ func (api *ApiServer) RegisterRoutes() {
 }
 
 func (api *ApiServer) Start() error {
-	api.router.Run(api.url)
+	api.router.Run(api.address)
 }
 
 func registerUserHandler(router *gin.Engine) {
