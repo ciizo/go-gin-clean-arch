@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	Server Server
+	Db     Database
 }
 
 type Server struct {
@@ -14,9 +15,14 @@ type Server struct {
 	Port     int
 }
 
+type Database struct {
+	ConnectionString string
+}
+
 const (
-	configHostname = "Hostname"
-	configPort     = "Port"
+	configHostname   = "Hostname"
+	configPort       = "Port"
+	connectionString = "ConnectionString"
 )
 
 const (
@@ -39,6 +45,7 @@ func (c *cfg) LoadConfigurations() Config {
 			Hostname: c.envString(configHostname, ""),
 			Port:     c.envInt(configPort, defaultPort),
 		},
+		Db: Database{ConnectionString: c.envString(connectionString, "")},
 	}
 }
 

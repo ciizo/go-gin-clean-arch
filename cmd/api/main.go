@@ -15,15 +15,21 @@ func main() {
 
 	logger, err := zap.NewProduction()
 	if err != nil {
-		log.Fatal("Cannot create logger", zap.Error(err))
+		log.Fatal("Failed to create logger", zap.Error(err))
 	}
 
+	fmt.Printf("connectionstring: %s", cfg.Db.ConnectionString)
+
 	srvUrl := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
-	srv := server.New(srvUrl)
+	srv, err := server.New(srvUrl, cfg.Db.ConnectionString)
+	if err != nil {
+		logger.Fatal("Failed to create api server", zap.Error(err))
+	}
+
 	srv.RegisterRoutes()
 
 	err = srv.Start()
 	if err != nil && err != http.ErrServerClosed {
-		logger.Fatal("Cannot start api server", zap.Error(err))
+		logger.Fatal("Failed to start api server", zap.Error(err))
 	}
 }
