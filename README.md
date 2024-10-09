@@ -38,3 +38,5 @@ Statuses: 📝 To Do, 🚧 In Progress, ✅ Done
 | mq | 📝 To Do   |
 | unit test | 📝 To Do   |
 | integration test | 📝 To Do   |
+| ci/cd | 📝 To Do   |
+| observability | 📝 To Do   |
